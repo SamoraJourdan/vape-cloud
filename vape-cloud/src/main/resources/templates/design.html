@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Vape Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+  </head>
+  
+  <body>
+    <h1>Design your vape juice!</h1>
+    <h2>Feelin' hungry for flavour, <span th:text="${user.fullname}">NAME</span>?</h2>
+    <img th:src="@{/images/VapeCloud.png}"/>
+    
+    <form method="POST" th:action="@{/logout}" id="logoutForm">
+      <input type="submit" value="Logout"/>
+    </form>
+        
+    <form th:method="POST" th:object="${design}" th:action="@{/design}" id="tacoForm">
+
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ingredients')}" 
+          th:errors="*{ingredients}">Ingredient Error</span>
+
+    <div class="grid">
+      <div class="ingredient-group" id="bases">
+      <h3>Designate your base:</h3>
+      <div th:each="ingredient : ${base}">
+        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
+        <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+      </div>
+      </div>
+
+	  <div class="ingredient-group" id="fruits">
+      <h3>Pick your fruit flavours:</h3>
+      <div th:each="ingredient : ${fruit}">
+        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
+        <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+      </div>
+      </div>
+  
+	  <div class="ingredient-group" id="desserts">
+      <h3>Choose your dessert flavours:</h3>
+      <div th:each="ingredient : ${dessert}">
+        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
+        <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+      </div>
+      </div>
+        
+	  <div class="ingredient-group" id="tobaccos">
+      <h3>Determine your tobacco flavours:</h3>
+      <div th:each="ingredient : ${tobacco}">
+        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
+        <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+      </div>
+      </div>
+      
+	  <div class="ingredient-group" id="others">
+      <h3>Select your other flavours:</h3>
+      <div th:each="ingredient : ${other}">
+        <input name="ingredients" type="checkbox" th:value="${ingredient.id}" />
+        <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+      </div>
+      </div>
+      </div>
+      
+      <div>
+
+
+      <h3>Name your vape juice :</h3>
+      <input type="text" th:field="*{name}"/>
+      <span class="validationError"
+            th:if="${#fields.hasErrors('name')}" 
+            th:errors="*{name}">Name Error</span>
+      <br/>
+      
+      <button>Submit your juice</button>
+      </div>
+    </form>
+  </body>
+</html>
